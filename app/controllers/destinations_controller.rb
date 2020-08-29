@@ -10,7 +10,8 @@ class DestinationsController < ApplicationController
         if destination.save
             render json: destination
         else
-            render json: {error: 'Could not be created'}
+            messages = destination.errors.full_messages.join(', ')
+            render json: {error: messages }
         end
     end
 
@@ -19,7 +20,8 @@ class DestinationsController < ApplicationController
         if destination.update(destination_params)
             render json: destination
         else
-            render json: {error: 'Could not update'}
+            messages = destination.errors.full_messages.join(', ')
+            render json: { error: messages }
         end
     end
     

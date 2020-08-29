@@ -10,7 +10,8 @@ class ActivitiesController < ApplicationController
         if activity.save
             render json: activity
         else
-            render json: {error: 'Could not be created'}
+            messages = activity.errors.full_messages.join(', ')
+            render json: {error: messages }
         end
     end
 
@@ -18,7 +19,7 @@ class ActivitiesController < ApplicationController
         activity = Activity.find(params[:id])
         activity.destroy
 
-        render json: {message: `Successfully deleted #{activity.name}.`}
+        render json: {message: "Successfully deleted #{activity.name}."}
     end
 
     private
